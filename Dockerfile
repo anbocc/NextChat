@@ -8,7 +8,7 @@ WORKDIR /app
 
 COPY ./main.py /app/main.py
 COPY package.json yarn.lock ./
-COPY ./requirements.txt ./  # 复制依赖文件
+COPY ./requirements.txt /app/requirements.txt
 
 RUN pip install -r requirements.txt  # 安装所有依赖
 RUN yarn config set registry 'https://registry.npmmirror.com/'

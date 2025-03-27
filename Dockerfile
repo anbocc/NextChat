@@ -20,7 +20,6 @@ RUN apk add --no-cache git
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-COPY main.py . 
 RUN yarn build
 
 # 第五阶段：最终运行镜像

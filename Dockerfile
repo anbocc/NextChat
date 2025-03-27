@@ -5,7 +5,7 @@ RUN apk add --no-cache python3 py3-pip gcc python3-dev libc6-compat
 
 WORKDIR /app
 
-COPY package.json yarn.lock requirements.txt ./
+COPY package.json yarn.lock requirements.txt main.py ./
 
 RUN yarn config set registry 'https://registry.npmmirror.com/'
 RUN yarn install

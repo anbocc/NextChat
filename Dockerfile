@@ -1,23 +1,14 @@
 FROM node:18-alpine AS base
 FROM base AS deps
 
-RUN apk add --no-cache libc6-compat
+RUN apk add --no-cache python3 py3-pip gcc python3-dev libc6-compat
 
 WORKDIR /app
 
-COPY package.json yarn.lock ./
-COPY requirements.txt .
+COPY package.json yarn.lock requirements.txt ./
 
 RUN yarn config set registry 'https://registry.npmmirror.com/'
 RUN yarn install
-
-FROM python:3.9
-
-WORKDIR /app
-
-COPY ./main.py /app/main.py
-COPY requirements.txt .
-
 RUN pip install --no-cache-dir -r requirements.txt
 
 FROM base AS builder
@@ -49,6 +40,8 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/.next/server ./.next/server
+COPY --from=python:3.9 /app/main.py .
+COPY --from=python:3.9 /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
 
 RUN mkdir -p /app/app/mcp && chmod 777 /app/app/mcp
 COPY --from=builder /app/app/mcp/mcp_config.default.json /app/app/mcp/mcp_config.json

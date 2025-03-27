@@ -1,13 +1,7 @@
 {
     "mcpServers": {
         "files": {
-            "command": "uv",
-            "args": [
-                "--directory",
-                "D:\\pyProject\\pythonProject",
-                "run",
-                "main.py"
-            ]
+            "command": "python main.py"
         }
     }
 }

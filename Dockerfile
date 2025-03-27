@@ -1,5 +1,5 @@
 FROM node:18-alpine AS base
-FROM python:3.9-slim
+FROM python:3.9
 FROM base AS deps
 
 RUN apk add --no-cache libc6-compat
@@ -8,9 +8,10 @@ WORKDIR /app
 
 COPY ./main.py /app/main.py
 COPY package.json yarn.lock ./
-COPY ./requirements.txt /app/requirements.txt
+COPY requirements.txt .
 
-RUN pip install -r requirements.txt  # 安装所有依赖
+RUN pip install --no-cache-dir -r requirements.txt
+
 RUN yarn config set registry 'https://registry.npmmirror.com/'
 RUN yarn install
 

@@ -29,15 +29,10 @@ WORKDIR /app
 # 安装运行时依赖（Python + Node.js）
 RUN apk add --no-cache \
     python3 \
+    python3-dev \
     py3-pip \
     proxychains-ng \
     && ln -sf python3 /usr/bin/python
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    python3-dev \
-    libffi-dev \
-    libssl-dev \
-    && rm -rf /var/lib/apt/lists/*
 
 # 从各构建阶段复制文件
 COPY --from=py-deps /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
@@ -54,7 +49,7 @@ ENV PROXY_URL="" \
     OPENAI_API_KEY="" \
     GOOGLE_API_KEY="" \
     CODE="" \
-    ENABLE_MCP=""
+    ENABLE_MCP="true"
 RUN mkdir -p /app/app/mcp && chmod 777 /app/app/mcp
 
 EXPOSE 3000

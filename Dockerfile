@@ -20,7 +20,7 @@ RUN apk add --no-cache git
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN echo "print('Hello')" > ./main.py  # 模拟生成文件  
+COPY main.py . 
 RUN yarn build
 
 # 第五阶段：最终运行镜像

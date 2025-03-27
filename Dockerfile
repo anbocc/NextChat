@@ -9,7 +9,7 @@ COPY package.json yarn.lock ./
 RUN yarn config set registry 'https://registry.npmmirror.com/' && yarn install
 
 # 第三阶段：Python 依赖安装（与 Node.js 并行）
-FROM python:3.9-slim AS py-deps
+FROM python:3.10 AS py-deps
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt

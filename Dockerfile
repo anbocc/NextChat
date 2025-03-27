@@ -34,7 +34,7 @@ RUN apk add --no-cache \
     && ln -sf python3 /usr/bin/python
 
 # 从各构建阶段复制文件
-COPY --from=py-deps /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
+COPY --from=py-deps /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
 COPY --from=py-deps /app/requirements.txt .
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./

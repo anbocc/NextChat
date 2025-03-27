@@ -40,7 +40,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/.next/server ./.next/server
-COPY --from=builder /app/main.py .         # 确保复制 Python 文件
+COPY --from=builder /app/main.py /app/main.py         # 确保复制 Python 文件
 COPY --from=builder /app/app/mcp/mcp_config.default.json ./app/mcp/mcp_config.json
 
 # 环境变量与权限设置

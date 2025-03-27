@@ -9,7 +9,7 @@ COPY package.json yarn.lock ./
 RUN yarn config set registry 'https://registry.npmmirror.com/' && yarn install
 
 # 第三阶段：Python 依赖安装（与 Node.js 并行）
-FROM python:3.10 AS py-deps
+FROM python:3.12 AS py-deps
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
@@ -35,7 +35,7 @@ RUN apk add --no-cache \
     && ln -sf python3 /usr/bin/python
 
 # 从各构建阶段复制文件
-COPY --from=py-deps /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
+COPY --from=py-deps /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
 COPY --from=py-deps /app/requirements.txt .
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./

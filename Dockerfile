@@ -5,7 +5,7 @@ RUN apk add --no-cache python3 py3-pip gcc python3-dev libc6-compat
 
 WORKDIR /app
 
-COPY package.json yarn.lock requirements.txt main.py ./
+COPY package.json yarn.lock requirements.txt ./
 
 RUN yarn config set registry 'https://registry.npmmirror.com/'
 RUN yarn install
@@ -40,8 +40,8 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/.next/server ./.next/server
-COPY --from=python:3.9 /app/main.py .
-COPY --from=python:3.9 /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
+COPY --from=builder /app/main.py ./
+COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
 
 RUN mkdir -p /app/app/mcp && chmod 777 /app/app/mcp
 COPY --from=builder /app/app/mcp/mcp_config.default.json /app/app/mcp/mcp_config.json

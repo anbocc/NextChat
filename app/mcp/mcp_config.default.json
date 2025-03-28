@@ -1,6 +1,6 @@
 {
     "mcpServers": {
-        "files": {
+        "fileSystem": {
             "command": "uv",
             "args": [
                 "--directory",

@@ -11,5 +11,5 @@ def get_files():
 
 
 if __name__ == "__main__":
-    # print("mcp启动成功！")
-    mcp.run(transport='sse')
+    print("mcp启动成功！")
+    mcp.run(transport='stdio')

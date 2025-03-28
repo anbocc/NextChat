@@ -1,7 +1,7 @@
 {
     "mcpServers": {
         "files": {
-            "command": "python main.py"
+            "command": "python /app/main.py"
         }
     }
 }

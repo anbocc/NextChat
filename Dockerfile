@@ -32,11 +32,12 @@ RUN apk add --no-cache \
     python3-dev \
     py3-pip \
     proxychains-ng \
+    libstdc++ \
     && ln -sf python3 /usr/bin/python
 
 # 从各构建阶段复制文件
 COPY --from=py-deps /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
-COPY --from=py-deps /app/requirements.txt .
+COPY --from=py-deps /usr/local/bin /usr/local/bin
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
@@ -49,6 +50,7 @@ ENV PROXY_URL="" \
     OPENAI_API_KEY="" \
     GOOGLE_API_KEY="" \
     CODE="" \
+    PYTHONPATH="/usr/local/lib/python3.12/site-packages" \
     ENABLE_MCP="true"
 RUN mkdir -p /app/app/mcp && chmod 777 /app/app/mcp
 

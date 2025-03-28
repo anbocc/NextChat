@@ -14,7 +14,7 @@ export async function createClient(
   const headers: HeadersInit = {
     Accept: "text/event-stream",
   };
-  const url = config.url;
+  const url = config.command;
   const transport = new SSEClientTransport(new URL(url), {
     eventSourceInit: {
       fetch: (url, init) => fetch(url, { ...init, headers }),

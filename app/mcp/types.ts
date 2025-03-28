@@ -111,9 +111,7 @@ export interface ServerStatusResponse {
 
 // MCP 服务器配置相关类型
 export interface ServerConfig {
-  command: string;
-  args: string[];
-  env?: Record<string, string>;
+  url: string;
   status?: "active" | "paused" | "error";
 }
 

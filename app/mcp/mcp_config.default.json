@@ -1,13 +1,7 @@
 {
-    "mcpServers": {
-        "fileSystem": {
-            "command": "uv",
-            "args": [
-                "--directory",
-                "/app",
-                "run",
-                "main.py"
-            ]
-        }
+  "mcpServers": {
+    "fileSystem": {
+      "url": "http://localhost:8000/sse"
     }
+  }
 }

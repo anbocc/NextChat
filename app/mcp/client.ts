@@ -1,5 +1,5 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
-import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+import { SSEClientTransport } from "@modelcontextprotocol/sdk/client/sse.js";
 import { MCPClientLogger } from "./logger";
 import { ListToolsResponse, McpRequestMessage, ServerConfig } from "./types";
 import { z } from "zod";
@@ -11,17 +11,16 @@ export async function createClient(
   config: ServerConfig,
 ): Promise<Client> {
   logger.info(`Creating client for ${id}...`);
-
-  const transport = new StdioClientTransport({
-    command: config.command,
-    args: config.args,
-    env: {
-      ...Object.fromEntries(
-        Object.entries(process.env)
-          .filter(([_, v]) => v !== undefined)
-          .map(([k, v]) => [k, v as string]),
-      ),
-      ...(config.env || {}),
+  const headers: HeadersInit = {
+    Accept: "text/event-stream",
+  };
+  const url = config.url;
+  const transport = new SSEClientTransport(new URL(url), {
+    eventSourceInit: {
+      fetch: (url, init) => fetch(url, { ...init, headers }),
+    },
+    requestInit: {
+      headers,
     },
   });
 

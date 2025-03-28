@@ -1,7 +1,7 @@
 import os
 from mcp.server.fastmcp import FastMCP
 
-mcp = FastMCP()
+mcp = FastMCP("my-mcp", dependencies=["pandas", "numpy"])
 
 
 @mcp.tool()

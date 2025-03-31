@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "fileSystem": {
-      "command": "http://localhost:8000/sse"
+      "command": "http://localhost:8001/sse"
     }
   }
 }

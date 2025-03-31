@@ -95,9 +95,9 @@ export function McpMarketPage() {
       try {
         setLoadingPresets(true);
         const response = await fetch("https://nextchat.club/mcp/list");
-        if (!response.ok) {
-          throw new Error("Failed to load preset servers");
-        }
+        // if (!response.ok) {
+        //   throw new Error("Failed to load preset servers");
+        // }
         const data = await response.json();
         setPresetServers(data?.data ?? []);
       } catch (error) {
@@ -107,7 +107,7 @@ export function McpMarketPage() {
         setLoadingPresets(false);
       }
     };
-    loadPresetServers();
+    // loadPresetServers();
   }, [mcpEnabled]);
 
   // 加载初始状态

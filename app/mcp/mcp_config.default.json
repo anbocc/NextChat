@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "fileSystem": {
-      "command": "http://localhost:8001/sse"
+      "command": "http://host.docker.internal:8001/sse"
     }
   }
 }

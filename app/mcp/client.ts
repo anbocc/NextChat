@@ -11,9 +11,7 @@ export async function createClient(
   config: ServerConfig,
 ): Promise<Client> {
   logger.info(`Creating client for ${id}...`);
-  const headers: HeadersInit = {
-    Accept: "text/event-stream",
-  };
+  const headers: HeadersInit = {};
   const url = config.command;
   const transport = new SSEClientTransport(new URL(url), {
     eventSourceInit: {

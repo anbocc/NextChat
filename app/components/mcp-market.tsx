@@ -107,7 +107,7 @@ export function McpMarketPage() {
         setLoadingPresets(false);
       }
     };
-    // loadPresetServers();
+    loadPresetServers();
   }, [mcpEnabled]);
 
   // 加载初始状态

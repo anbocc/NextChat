@@ -34,7 +34,7 @@ ENV PROXY_URL=""
 ENV OPENAI_API_KEY=""
 ENV GOOGLE_API_KEY=""
 ENV CODE=""
-ENV ENABLE_MCP=""
+ENV ENABLE_MCP="true"
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./

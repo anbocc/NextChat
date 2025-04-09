@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "fileSystem": {
+    "get_device_info": {
       "command": "http://host.docker.internal:8001/sse"
     }
   }

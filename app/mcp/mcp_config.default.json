@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "deviceTools": {
-      "command": "http://host.docker.internal:8001/sse"
+      "command": "http://internal-degrii-mcp-service-1794423679.us-west-2.elb.amazonaws.com/sse"
     }
   }
 }

@@ -1,6 +1,6 @@
 {
   "mcpServers": {
-    "device_tools": {
+    "deviceTools": {
       "command": "http://host.docker.internal:8001/sse"
     }
   }

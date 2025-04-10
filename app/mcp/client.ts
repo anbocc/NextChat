@@ -13,6 +13,7 @@ export async function createClient(
   logger.info(`Creating client for ${id}...`);
   const headers: HeadersInit = {};
   const url = config.command;
+  logger.info(`sse url: ${url}`);
   const transport = new SSEClientTransport(new URL(url), {
     eventSourceInit: {
       fetch: (url, init) => fetch(url, { ...init, headers }),

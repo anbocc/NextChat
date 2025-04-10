@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "deviceTools": {
-      "command": "http://degrii-mcp-service-dev-910274724.us-west-2.elb.amazonaws.com/sse"
+      "command": "http://internal-mcp-service-test-398189816.us-west-2.elb.amazonaws.com/sse"
     }
   }
 }

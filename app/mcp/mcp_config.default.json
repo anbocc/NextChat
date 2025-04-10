@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "deviceTools": {
-      "command": "http://mcp-service-test-1264904609.us-west-2.elb.amazonaws.com/sse"
+      "command": "http://localhost:8080/sse"
     }
   }
 }

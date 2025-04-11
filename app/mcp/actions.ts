@@ -25,11 +25,11 @@ const clientsMap = new Map<string, McpClientData>();
 
 //通过工具名获取client
 export async function getClientByTool(toolName: string) {
-  logger.info("toolname=${toolName}");
+  logger.info(`toolname=${toolName}`);
   for (const [key, value] of clientsMap.entries()) {
+    logger.info(`value.tools=${value.tools}`);
     // @ts-ignore
     if (toolName in value.tools?.tools) {
-      logger.info(`value.tools=${value.tools}`);
       return key;
     }
   }

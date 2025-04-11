@@ -836,8 +836,12 @@ export const useChatStore = createPersistStore(
         if (isMcpJson(content)) {
           try {
             const mcpRequest = extractMcpJson(content);
-            // @ts-ignore
-            mcpRequest?.clientId = getClientId(mcpRequest?.mcp);
+            if (mcpRequest)
+              getClientId(mcpRequest.clientId, mcpRequest.mcp).then(
+                (result) => {
+                  mcpRequest.clientId = result;
+                },
+              );
 
             if (mcpRequest) {
               console.log("[MCP Request]", mcpRequest);

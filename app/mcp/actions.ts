@@ -29,6 +29,7 @@ export async function getClientByTool(toolName: string) {
   for (const [key, value] of clientsMap.entries()) {
     // @ts-ignore
     if (toolName in value.tools?.tools) {
+      logger.info(`value.tools=${value.tools}`);
       return key;
     }
   }

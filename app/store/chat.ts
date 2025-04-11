@@ -36,7 +36,12 @@ import { ModelConfig, ModelType, useAppConfig } from "./config";
 import { useAccessStore } from "./access";
 import { collectModelsWithDefaultModel } from "../utils/model";
 import { createEmptyMask, Mask } from "./mask";
-import { executeMcpAction, getAllTools, isMcpEnabled } from "../mcp/actions";
+import {
+  executeMcpAction,
+  getAllTools,
+  getClientId,
+  isMcpEnabled,
+} from "../mcp/actions";
 import { extractMcpJson, isMcpJson } from "../mcp/utils";
 
 const localStorage = safeLocalStorage();
@@ -831,6 +836,9 @@ export const useChatStore = createPersistStore(
         if (isMcpJson(content)) {
           try {
             const mcpRequest = extractMcpJson(content);
+            // @ts-ignore
+            mcpRequest?.clientId = getClientId(mcpRequest?.mcp);
+
             if (mcpRequest) {
               console.log("[MCP Request]", mcpRequest);
 

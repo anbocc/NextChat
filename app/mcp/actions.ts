@@ -23,20 +23,6 @@ const CONFIG_PATH = path.join(process.cwd(), "app/mcp/mcp_config.json");
 
 const clientsMap = new Map<string, McpClientData>();
 
-//通过工具名获取client
-export async function getClientByTool(toolName: string) {
-  logger.info(`toolname=${toolName}`);
-  for (const [key, value] of clientsMap.entries()) {
-    console.log(`value.tools=${value.tools}`);
-    // @ts-ignore
-    if (toolName in value.tools?.tools) {
-      return key;
-    }
-  }
-
-  return undefined;
-}
-
 // 获取客户端状态
 export async function getClientsStatus(): Promise<
   Record<string, ServerStatusResponse>
@@ -347,6 +333,27 @@ export async function restartAllClients() {
   }
 }
 
+//检测clientid是否存在
+export async function getClientId(
+  clientId: string,
+  request: McpRequestMessage,
+) {
+  let client = clientsMap.get(clientId);
+  if (!client?.client) {
+    for (const [key, value] of clientsMap.entries()) {
+      // @ts-ignore
+      for (const tool of value.tools?.tools) {
+        // @ts-ignore
+        if (tool.name == request.params?.name) {
+          return key;
+        }
+      }
+    }
+  }
+
+  return clientId;
+}
+
 // 执行 MCP 请求
 export async function executeMcpAction(
   clientId: string,
@@ -355,16 +362,7 @@ export async function executeMcpAction(
   try {
     let client = clientsMap.get(clientId);
     if (!client?.client) {
-      const toolName = request.params?.name;
-      if (typeof toolName === "string" && toolName != "") {
-        // @ts-ignore
-        clientId = await getClientByTool(toolName);
-
-        if (clientId == undefined) {
-          throw new Error(`Client ${clientId} not found`);
-        }
-        client = clientsMap.get(clientId);
-      }
+      throw new Error(`Client ${clientId} not found`);
     }
 
     logger.info(`Executing request for [${clientId}]`);

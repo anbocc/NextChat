@@ -26,7 +26,10 @@ const clientsMap = new Map<string, McpClientData>();
 //通过工具名获取client
 export async function getClientByTool(toolName: string) {
   for (const [key, value] of clientsMap.entries()) {
-    if (value.tools?.tools.name == toolName) return key;
+    if (value.tools?.tools.name == toolName) {
+      logger.info(`toolname=${toolName}, clientid=${key}`);
+      return key;
+    }
   }
 }
 

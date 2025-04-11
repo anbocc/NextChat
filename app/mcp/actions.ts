@@ -27,7 +27,7 @@ const clientsMap = new Map<string, McpClientData>();
 export async function getClientByTool(toolName: string) {
   logger.info(`toolname=${toolName}`);
   for (const [key, value] of clientsMap.entries()) {
-    logger.info(`value.tools=${value.tools}`);
+    console.info(`value.tools=${value.tools}`);
     // @ts-ignore
     if (toolName in value.tools?.tools) {
       return key;

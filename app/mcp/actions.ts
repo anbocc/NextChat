@@ -343,8 +343,11 @@ export async function getClientId(
     for (const [key, value] of clientsMap.entries()) {
       // @ts-ignore
       for (const tool of value.tools?.tools) {
+        logger.info(`toolname = ${tool.name}`);
+        logger.info(`request.params?.name = ${request.params?.name}`);
         // @ts-ignore
         if (tool.name == request.params?.name) {
+          logger.info(`find client success`);
           return key;
         }
       }

@@ -836,30 +836,29 @@ export const useChatStore = createPersistStore(
         if (isMcpJson(content)) {
           try {
             const mcpRequest = extractMcpJson(content);
-            if (mcpRequest)
-              getClientId(mcpRequest.clientId, mcpRequest.mcp).then(
-                (result) => {
-                  mcpRequest.clientId = result;
-                },
-              );
-
             if (mcpRequest) {
               console.log("[MCP Request]", mcpRequest);
+              getClientId(mcpRequest.clientId, mcpRequest.mcp).then(
+                (result) => {
+                  console.log(`${result}`);
+                  mcpRequest.clientId = result;
 
-              executeMcpAction(mcpRequest.clientId, mcpRequest.mcp)
-                .then((result) => {
-                  console.log("[MCP Response]", result);
-                  const mcpResponse =
-                    typeof result === "object"
-                      ? JSON.stringify(result)
-                      : String(result);
-                  get().onUserInput(
-                    `\`\`\`json:mcp-response:${mcpRequest.clientId}\n${mcpResponse}\n\`\`\``,
-                    [],
-                    true,
-                  );
-                })
-                .catch((error) => showToast("MCP execution failed", error));
+                  executeMcpAction(mcpRequest.clientId, mcpRequest.mcp)
+                    .then((result) => {
+                      console.log("[MCP Response]", result);
+                      const mcpResponse =
+                        typeof result === "object"
+                          ? JSON.stringify(result)
+                          : String(result);
+                      get().onUserInput(
+                        `\`\`\`json:mcp-response:${mcpRequest.clientId}\n${mcpResponse}\n\`\`\``,
+                        [],
+                        true,
+                      );
+                    })
+                    .catch((error) => showToast("MCP execution failed", error));
+                },
+              );
             }
           } catch (error) {
             console.error("[Check MCP JSON]", error);

@@ -23,6 +23,13 @@ const CONFIG_PATH = path.join(process.cwd(), "app/mcp/mcp_config.json");
 
 const clientsMap = new Map<string, McpClientData>();
 
+//通过工具名获取client
+export async function getClientByTool(toolName: string) {
+  for (const [key, value] of clientsMap.entries()) {
+    if (value.tools?.tools.name == toolName) return key;
+  }
+}
+
 // 获取客户端状态
 export async function getClientsStatus(): Promise<
   Record<string, ServerStatusResponse>
@@ -339,11 +346,22 @@ export async function executeMcpAction(
   request: McpRequestMessage,
 ) {
   try {
-    const client = clientsMap.get(clientId);
+    let client = clientsMap.get(clientId);
     if (!client?.client) {
-      throw new Error(`Client ${clientId} not found`);
+      const toolName = request.params?.name;
+      if (typeof toolName === "string" && toolName != "") {
+        // @ts-ignore
+        clientId = await getClientByTool(toolName);
+
+        if (!client?.client) {
+          throw new Error(`Client ${clientId} not found`);
+        }
+        client = clientsMap.get(clientId);
+      }
     }
+
     logger.info(`Executing request for [${clientId}]`);
+    // @ts-ignore
     return await executeRequest(client.client, request);
   } catch (error) {
     logger.error(`Failed to execute request for [${clientId}]: ${error}`);

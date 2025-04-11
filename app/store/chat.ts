@@ -832,7 +832,7 @@ export const useChatStore = createPersistStore(
           try {
             const mcpRequest = extractMcpJson(content);
             if (mcpRequest) {
-              console.debug("[MCP Request]", mcpRequest);
+              console.log("[MCP Request]", mcpRequest);
 
               executeMcpAction(mcpRequest.clientId, mcpRequest.mcp)
                 .then((result) => {

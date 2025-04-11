@@ -25,12 +25,15 @@ const clientsMap = new Map<string, McpClientData>();
 
 //通过工具名获取client
 export async function getClientByTool(toolName: string) {
+  logger.info("toolname=${toolName}");
   for (const [key, value] of clientsMap.entries()) {
-    if (value.tools?.tools.name == toolName) {
-      logger.info(`toolname=${toolName}, clientid=${key}`);
+    // @ts-ignore
+    if (toolName in value.tools?.tools) {
       return key;
     }
   }
+
+  return undefined;
 }
 
 // 获取客户端状态
@@ -356,7 +359,7 @@ export async function executeMcpAction(
         // @ts-ignore
         clientId = await getClientByTool(toolName);
 
-        if (!client?.client) {
+        if (clientId == undefined) {
           throw new Error(`Client ${clientId} not found`);
         }
         client = clientsMap.get(clientId);
